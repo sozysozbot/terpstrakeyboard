@@ -1,15 +1,15 @@
 //check\set preset
 var init_keyboard_onload = true;
-if(decodeURIComponent(window.location.search) == '')
+/*if(decodeURIComponent(window.location.search) == '')
 {
   init_keyboard_onload = false;
-}
+}*/
 
 checkPreset(16);
 // fill in form
 document.getElementById('settingsForm').onsubmit = goKeyboard;
 
-var getData = new QueryData(location.search, true);
+var getData = new QueryData('?fundamental=300.27&right=3&upright=1&size=50&rotation=0&instrument=harpsichord&enum=false&equivSteps=12&spectrum_colors=false&fundamental_color=55FF55&no_labels=false&scale=!%2012-ed2%20C-System%20Chromatic%20Button.scl%0A!%2012-tone%20equal%20tempered%20scale%20consisting%20of%2012%20sonically%20equal%20divisions%20per%20frequency%20halving%2Fdoubling%2C%20mapped%20on%20a%20(hexagonal)%20tilted%20Chromatic%20Button%20System%20Type-C%20used%20on%20some%20button%20accordions.%0A!%0ATerpstra%20Keyboard%20WebApp%20%7C%2012-ed2%20C-System%20Chromatic%20Button%0A12%0A!%0A100.00000%0A200.00000%0A300.00000%0A400.00000%0A500.00000%0A600.00000%0A700.00000%0A800.00000%0A900.00000%0A1000.00000%0A1100.00000%0A1200.00000&names=%E4%B8%80%0A%E7%8A%AC%0A%E4%BA%8C%0A%E7%8C%AB%0A%E4%B8%89%0A%E6%B7%B7%0A%E5%8F%AE%0A%E5%9B%9B%0A%E7%94%B7%0A%E4%BA%94%0A%E7%B1%B3%0A%E5%85%AD&note_colors=ffffff%0A005242%0Affffff%0A005242%0Affffff%0A02ad8c%0A005242%0Affffff%0A005242%0Affffff%0A005242%0Abababa', true);
 document.getElementById("fundamental").value = ("fundamental" in getData) ? getData.fundamental : 263.09212;
 document.getElementById("rSteps").value = ("right" in getData) ? getData.right : 5;
 document.getElementById("urSteps").value = ("upright" in getData) ? getData.upright : 2;
@@ -100,17 +100,17 @@ function Point(x, y) {
   this.y = y;
 }
 
-Point.prototype.equals = function(p) {
+Point.prototype.equals = function (p) {
   return (this.x == p.x && this.y == p.y);
 };
 
-Point.prototype.plus = function(p) {
+Point.prototype.plus = function (p) {
   var x = this.x + p.x;
   var y = this.y + p.y;
   return (new Point(x, y));
 };
 
-Point.prototype.minus = function(p) {
+Point.prototype.minus = function (p) {
   var x = this.x - p.x;
   var y = this.y - p.y;
   return (new Point(x, y));
@@ -148,7 +148,7 @@ function changeURL() {
   var foundDescription = false;
   var description = "Terpstra Keyboard WebApp";
 
-  scaleLines.forEach(function(line) {
+  scaleLines.forEach(function (line) {
     if (!(foundDescription) && !(line.match(/^\!/)) && line.match(/[a-zA-Z]+/)) {
       foundDescription = true;
       description = line;
@@ -165,7 +165,7 @@ var settings = {};
 function parseScale() {
   settings.scale = [];
   var scaleLines = document.getElementById('scale').value.split('\n');
-  scaleLines.forEach(function(line) {
+  scaleLines.forEach(function (line) {
     if (line.match(/^[1234567890.\s/]+$/) && !(line.match(/^\s+$/))) {
       if (line.match(/\//)) {
         // ratio
@@ -174,7 +174,7 @@ function parseScale() {
         settings.scale.push(ratio);
       } else {
         if (line.match(/\./))
-        // cents
+          // cents
           settings.scale.push(parseFloat(line));
       }
     }
@@ -186,7 +186,7 @@ function parseScale() {
 function parseScaleColors() {
   settings.keycolors = [];
   var colorsArray = document.getElementById('note_colors').value.split('\n');
-  colorsArray.forEach(function(line) {
+  colorsArray.forEach(function (line) {
     settings.keycolors.push(line);
   });
 }
@@ -317,75 +317,75 @@ function goKeyboard() {
   settings.sampleBuffer = [undefined, undefined, undefined];
   var instrumentOption = document.getElementById("instrument").selectedIndex;
   var instruments = [{
-      fileName: "piano",
-      fade: 0.1
-    }, {
-      fileName: "harpsichord",
-      fade: 0.2
-    }, {
-      fileName: "rhodes",
-      fade: 0.1
-    }, {
-      fileName: "harp",
-      fade: 0.2
-    }, {
-      fileName: "choir",
-      fade: 0.5
-    }, {
-      fileName: "strings",
-      fade: 0.9
-    }, {
-      fileName: "sawtooth",
-      fade: 0.2
-    }, {
-      fileName: "gayageum",
-      fade: 1
-    }, {
-      fileName: "qanun",
-      fade: 1
-    }, {
-      fileName: "organ",
-      fade: 0.1
-    }, {
-      fileName: "organleslie",
-      fade: 0.1
-    }, {
-      fileName: "marimba",
-      fade: 0.1
-    }, {
-      fileName: "musicbox",
-      fade: 0.1
-    }, {
-      fileName: "WMRI3LST",
-      fade: 0.1
-    }, {
-      fileName: "WMRI5LST",
-      fade: 0.1
-    }, {
-      fileName: "WMRI5Lpike",
-      fade: 0.1
-    }, {
-      fileName: "WMRI7LST",
-      fade: 0.1
-    }, {
-      fileName: "WMRI11LST",
-      fade: 0.1
-    }, {
-      fileName: "WMRI13LST",
-      fade: 0.1
-    }, {
-      fileName: "WMRInLST",
-      fade: 0.1
-    }, {
-      fileName: "WMRIByzantineST",
-      fade: 0.1
-    }, {
-      fileName: "WMRI-in6-har7-",
-      fade: 0.1
-    }, {
-      fileName: "WMRI-in7-har6-",
-      fade: 0.1
-    }
+    fileName: "piano",
+    fade: 0.1
+  }, {
+    fileName: "harpsichord",
+    fade: 0.2
+  }, {
+    fileName: "rhodes",
+    fade: 0.1
+  }, {
+    fileName: "harp",
+    fade: 0.2
+  }, {
+    fileName: "choir",
+    fade: 0.5
+  }, {
+    fileName: "strings",
+    fade: 0.9
+  }, {
+    fileName: "sawtooth",
+    fade: 0.2
+  }, {
+    fileName: "gayageum",
+    fade: 1
+  }, {
+    fileName: "qanun",
+    fade: 1
+  }, {
+    fileName: "organ",
+    fade: 0.1
+  }, {
+    fileName: "organleslie",
+    fade: 0.1
+  }, {
+    fileName: "marimba",
+    fade: 0.1
+  }, {
+    fileName: "musicbox",
+    fade: 0.1
+  }, {
+    fileName: "WMRI3LST",
+    fade: 0.1
+  }, {
+    fileName: "WMRI5LST",
+    fade: 0.1
+  }, {
+    fileName: "WMRI5Lpike",
+    fade: 0.1
+  }, {
+    fileName: "WMRI7LST",
+    fade: 0.1
+  }, {
+    fileName: "WMRI11LST",
+    fade: 0.1
+  }, {
+    fileName: "WMRI13LST",
+    fade: 0.1
+  }, {
+    fileName: "WMRInLST",
+    fade: 0.1
+  }, {
+    fileName: "WMRIByzantineST",
+    fade: 0.1
+  }, {
+    fileName: "WMRI-in6-har7-",
+    fade: 0.1
+  }, {
+    fileName: "WMRI-in7-har6-",
+    fade: 0.1
+  }
 
   ];
 
@@ -401,58 +401,58 @@ function goKeyboard() {
   //settings.canvas.addEventListener("keydown", onKeyDown, false); // Firefox isn't firing :(
   //settings.canvas.addEventListener("keyup", onKeyUp, false);
 
-  if (typeof(is_key_event_added) == 'undefined') {
+  if (typeof (is_key_event_added) == 'undefined') {
     is_key_event_added = 1;
     settings.pressedKeys = [];
     settings.keyCodeToCoords = {
-      49 : new Point(-5, -2), // 1
-      50 : new Point(-4, -2), // 2
-      51 : new Point(-3, -2), // 3
-      52 : new Point(-2, -2), // 4
-      53 : new Point(-1, -2), // 5
-      54 : new Point(0, -2), // 6
-      55 : new Point(1, -2), // 7
-      56 : new Point(2, -2), // 8
-      57 : new Point(3, -2), // 9
-      48 : new Point(4, -2), // 0
-      189 : new Point(5, -2), // -
-      187 : new Point(6, -2), // =
+      49: new Point(-5, -2), // 1
+      50: new Point(-4, -2), // 2
+      51: new Point(-3, -2), // 3
+      52: new Point(-2, -2), // 4
+      53: new Point(-1, -2), // 5
+      54: new Point(0, -2), // 6
+      55: new Point(1, -2), // 7
+      56: new Point(2, -2), // 8
+      57: new Point(3, -2), // 9
+      48: new Point(4, -2), // 0
+      189: new Point(5, -2), // -
+      187: new Point(6, -2), // =
 
-      81 : new Point(-5, -1), // Q
-      87 : new Point(-4, -1), // W
-      69 : new Point(-3, -1), // E
-      82 : new Point(-2, -1), // R
-      84 : new Point(-1, -1), // T
-      89 : new Point(0, -1), // Y
-      85 : new Point(1, -1), // U
-      73 : new Point(2, -1), // I
-      79 : new Point(3, -1), // O
-      80 : new Point(4, -1), // P
-      219 : new Point(5, -1), // [
-      221 : new Point(6, -1), // ]
+      81: new Point(-5, -1), // Q
+      87: new Point(-4, -1), // W
+      69: new Point(-3, -1), // E
+      82: new Point(-2, -1), // R
+      84: new Point(-1, -1), // T
+      89: new Point(0, -1), // Y
+      85: new Point(1, -1), // U
+      73: new Point(2, -1), // I
+      79: new Point(3, -1), // O
+      80: new Point(4, -1), // P
+      219: new Point(5, -1), // [
+      221: new Point(6, -1), // ]
 
-      65 : new Point(-5, 0), // A
-      83 : new Point(-4, 0), // S
-      68 : new Point(-3, 0), // D
-      70 : new Point(-2, 0), // F
-      71 : new Point(-1, 0), // G
-      72 : new Point(0, 0), // H
-      74 : new Point(1, 0), // J
-      75 : new Point(2, 0), // K
-      76 : new Point(3, 0), // L
-      186 : new Point(4, 0), // ;
-      222 : new Point(5, 0), // '
+      65: new Point(-5, 0), // A
+      83: new Point(-4, 0), // S
+      68: new Point(-3, 0), // D
+      70: new Point(-2, 0), // F
+      71: new Point(-1, 0), // G
+      72: new Point(0, 0), // H
+      74: new Point(1, 0), // J
+      75: new Point(2, 0), // K
+      76: new Point(3, 0), // L
+      186: new Point(4, 0), // ;
+      222: new Point(5, 0), // '
 
-      90 : new Point(-5, 1), // Z
-      88 : new Point(-4, 1), // X
-      67 : new Point(-3, 1), // C
-      86 : new Point(-2, 1), // V
-      66 : new Point(-1, 1), // B
-      78 : new Point(0, 1), // N
-      77 : new Point(1, 1), // M
-      188 : new Point(2, 1), // ,
-      190 : new Point(3, 1), // .
-      191 : new Point(4, 1), // /
+      90: new Point(-5, 1), // Z
+      88: new Point(-4, 1), // X
+      67: new Point(-3, 1), // C
+      86: new Point(-2, 1), // V
+      66: new Point(-1, 1), // B
+      78: new Point(0, 1), // N
+      77: new Point(1, 1), // M
+      188: new Point(2, 1), // ,
+      190: new Point(3, 1), // .
+      191: new Point(4, 1), // /
     };
     window.addEventListener("keydown", onKeyDown, false);
     window.addEventListener("keyup", onKeyUp, false);
@@ -475,7 +475,7 @@ function goKeyboard() {
       z2 = 0;
 
     // Listen to motion events and update the position
-    window.addEventListener('devicemotion', function(e) {
+    window.addEventListener('devicemotion', function (e) {
       x1 = e.accelerationIncludingGravity.x;
       y1 = e.accelerationIncludingGravity.y;
       z1 = e.accelerationIncludingGravity.z;
@@ -483,7 +483,7 @@ function goKeyboard() {
 
     // Periodically check the position and fire
     // if the change is greater than the sensitivity
-    setInterval(function() {
+    setInterval(function () {
       lastShakeCheck++;
       var change = Math.abs(x1 - x2 + y1 - y2 + z1 - z2);
 
@@ -522,7 +522,7 @@ function goKeyboard() {
   settings.canvas.addEventListener("touchmove", handleTouch, false);
 
   settings.isMouseDown = false;
-  settings.canvas.addEventListener("mousedown", function(e) {
+  settings.canvas.addEventListener("mousedown", function (e) {
     if (settings.pressedKeys.length != 0 || settings.isTouchDown) {
       return;
     }
@@ -531,7 +531,7 @@ function goKeyboard() {
     mouseActive(e);
   }, false);
 
-  settings.canvas.addEventListener("mouseup", function(e) {
+  settings.canvas.addEventListener("mouseup", function (e) {
     settings.isMouseDown = false;
     if (settings.pressedKeys.length != 0 || settings.isTouchDown) {
       return;
@@ -551,8 +551,8 @@ function onKeyDown(e) {
   if (e.keyCode == 32) { // Spacebar
     settings.sustain = true;
   } else if (!settings.isMouseDown && !settings.isTouchDown
-      && (e.keyCode in settings.keyCodeToCoords)
-      && settings.pressedKeys.indexOf(e.keyCode) == -1) {
+    && (e.keyCode in settings.keyCodeToCoords)
+    && settings.pressedKeys.indexOf(e.keyCode) == -1) {
     settings.pressedKeys.push(e.keyCode);
     var coords = settings.keyCodeToCoords[e.keyCode];
     var hex = new ActiveHex(coords);
@@ -571,13 +571,13 @@ function onKeyUp(e) {
     }
     settings.sustainedNotes = [];
   } else if (!settings.isMouseDown && !settings.isTouchDown
-      && (e.keyCode in settings.keyCodeToCoords)) {
+    && (e.keyCode in settings.keyCodeToCoords)) {
     var keyIndex = settings.pressedKeys.indexOf(e.keyCode);
     if (keyIndex != -1) {
       settings.pressedKeys.splice(keyIndex, 1);
       var coords = settings.keyCodeToCoords[e.keyCode];
       drawHex(coords, centsToColor(hexCoordsToCents(coords), false));
-      var hexIndex = settings.activeHexObjects.findIndex(function(hex) {
+      var hexIndex = settings.activeHexObjects.findIndex(function (hex) {
         return coords.equals(hex.coords);
       });
       if (hexIndex != -1) {
@@ -602,7 +602,7 @@ function mouseActive(e) {
     if (!(coords.equals(settings.activeHexObjects[0].coords))) {
       settings.activeHexObjects[0].noteOff();
       drawHex(settings.activeHexObjects[0].coords,
-          centsToColor(hexCoordsToCents(settings.activeHexObjects[0].coords, false)));
+        centsToColor(hexCoordsToCents(settings.activeHexObjects[0].coords, false)));
 
       settings.activeHexObjects[0] = new ActiveHex(coords);
       var cents = hexCoordsToCents(coords);
@@ -648,7 +648,7 @@ function handleTouch(e) {
 
   for (var i = 0; i < e.targetTouches.length; i++) {
     var coords = getHexCoordsAt(new Point(e.targetTouches[i].pageX - settings.canvas.offsetLeft,
-        e.targetTouches[i].pageY - settings.canvas.offsetTop));
+      e.targetTouches[i].pageY - settings.canvas.offsetTop));
     var found = false;
 
     for (var j = 0; j < settings.activeHexObjects.length; j++) {
@@ -680,8 +680,8 @@ function handleTouch(e) {
 
 function drawGrid() {
   var max = (settings.centerpoint.x > settings.centerpoint.y) ?
-      settings.centerpoint.x / settings.hexSize :
-      settings.centerpoint.y / settings.hexSize;
+    settings.centerpoint.x / settings.hexSize :
+    settings.centerpoint.y / settings.hexSize;
   max = Math.floor(max);
   for (var r = -max; r < max; r++) {
     for (var ur = -max; ur < max; ur++) {
@@ -783,7 +783,7 @@ function drawHex(p, c) { /* Point, color */
 
   //settings.context.fillStyle = "black"; //bdl_04062016
   settings.context.fillStyle = getContrastYIQ(current_text_color);
-  settings.context.font = "22pt Arial";
+  settings.context.font = "30pt linzklar_rounded";
   settings.context.textAlign = "center";
   settings.context.textBaseline = "middle";
 
@@ -810,10 +810,13 @@ function drawHex(p, c) { /* Point, color */
     settings.context.scale(scaleFactor, scaleFactor);
     settings.context.translate(10, -25);
     settings.context.fillStyle = "white";
-    settings.context.font = "12pt Arial";
+    settings.context.font = "12pt linzklar_rounded";
     settings.context.textAlign = "center";
     settings.context.textBaseline = "middle";
-    settings.context.fillText(equivMultiple, 0, 0);
+    settings.context.fillText(
+      equivMultiple === 0 ? "" :
+        equivMultiple > 0 ? "上".repeat(equivMultiple) : "下".repeat(-equivMultiple)
+      , 0, 0);
   }
 
   settings.context.restore();
@@ -822,7 +825,7 @@ function drawHex(p, c) { /* Point, color */
 function centsToColor(cents, pressed) {
   var returnColor;
   if (!settings.spectrum_colors) {
-    if (typeof(settings.keycolors[global_pressed_interval]) === 'undefined') {
+    if (typeof (settings.keycolors[global_pressed_interval]) === 'undefined') {
       returnColor = "#EDEDE4";
     } else {
       returnColor = settings.keycolors[global_pressed_interval];
@@ -996,7 +999,7 @@ function ActiveHex(coords) {
   this.freq = 440;
 }
 
-ActiveHex.prototype.noteOn = function(cents) {
+ActiveHex.prototype.noteOn = function (cents) {
   var freq = settings.fundamental * Math.pow(2, cents / 1200);
   var source = settings.audioContext.createBufferSource(); // creates a sound source
   // Choose sample
@@ -1034,14 +1037,14 @@ ActiveHex.prototype.noteOn = function(cents) {
   this.gainNode = gainNode;
 };
 
-ActiveHex.prototype.noteOff = function() {
+ActiveHex.prototype.noteOff = function () {
   if (settings.sustain) {
     settings.sustainedNotes.push(this);
   } else {
     var fadeout = settings.audioContext.currentTime + settings.sampleFadeout;
     if (this.gainNode) {
       this.gainNode.gain.setTargetAtTime(0, settings.audioContext.currentTime,
-          settings.sampleFadeout);
+        settings.sampleFadeout);
     }
     if (this.source) {
       // This is a terrible fudge. Please forgive me - it's late, I'm tired, I
@@ -1075,8 +1078,8 @@ function loadSample(name, iteration) {
   request.responseType = 'arraybuffer';
 
   // Decode asynchronously
-  request.onload = function() {
-    settings.audioContext.decodeAudioData(request.response, function(buffer) {
+  request.onload = function () {
+    settings.audioContext.decodeAudioData(request.response, function (buffer) {
       settings.sampleBuffer[iteration] = buffer;
       if (iteration < 3) loadSample(name, iteration + 1);
     }, onLoadError);
@@ -1095,7 +1098,7 @@ function tempAlert(msg, duration) {
   var el = document.createElement("div");
   el.setAttribute("style", "position:absolute;top:40%;left:20%;background-color:white; font-size:25px;");
   el.innerHTML = msg;
-  setTimeout(function() {
+  setTimeout(function () {
     el.parentNode.removeChild(el);
   }, duration);
   document.body.appendChild(el);
@@ -1281,7 +1284,7 @@ function rgb2hsv(r1, g1, b1) {
     h, s,
     v = Math.max(r, g, b),
     diff = v - Math.min(r, g, b),
-    diffc = function(c) {
+    diffc = function (c) {
       return (v - c) / 6 / diff + 1 / 2;
     };
 
@@ -1350,10 +1353,9 @@ function noPreset() {
 
 
 //initialize keyboard on load
-if(init_keyboard_onload)
-{
+if (init_keyboard_onload) {
   //hide landing page
-  document.getElementById('landing-page').style.display ='none';
-  
-  setTimeout(function(){ goKeyboard(); }, 1500);
+  document.getElementById('landing-page').style.display = 'none';
+
+  setTimeout(function () { goKeyboard(); }, 1500);
 }
