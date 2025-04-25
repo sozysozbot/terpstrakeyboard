@@ -4,7 +4,50 @@ checkPreset(16);
 // fill in form
 document.getElementById('settingsForm').onsubmit = goKeyboard;
 
-var getData = new QueryData('?fundamental=300.27&right=3&upright=1&size=50&rotation=0&instrument=harpsichord&enum=false&equivSteps=12&spectrum_colors=false&fundamental_color=55FF55&no_labels=false&scale=!%2012-ed2%20C-System%20Chromatic%20Button.scl%0A!%2012-tone%20equal%20tempered%20scale%20consisting%20of%2012%20sonically%20equal%20divisions%20per%20frequency%20halving%2Fdoubling%2C%20mapped%20on%20a%20(hexagonal)%20tilted%20Chromatic%20Button%20System%20Type-C%20used%20on%20some%20button%20accordions.%0A!%0ATerpstra%20Keyboard%20WebApp%20%7C%2012-ed2%20C-System%20Chromatic%20Button%0A12%0A!%0A100.00000%0A200.00000%0A300.00000%0A400.00000%0A500.00000%0A600.00000%0A700.00000%0A800.00000%0A900.00000%0A1000.00000%0A1100.00000%0A1200.00000&names=%E4%B8%80%0A%E7%8A%AC%0A%E4%BA%8C%0A%E7%8C%AB%0A%E4%B8%89%0A%E6%B7%B7%0A%E5%8F%AE%0A%E5%9B%9B%0A%E7%94%B7%0A%E4%BA%94%0A%E7%B1%B3%0A%E5%85%AD&note_colors=ffffff%0A005242%0Affffff%0A005242%0Affffff%0A02ad8c%0A005242%0Affffff%0A005242%0Affffff%0A005242%0Abababa', true);
+var getData = {
+  "fundamental": [
+    "300.27"
+  ],
+  "right": [
+    "3"
+  ],
+  "upright": [
+    "1"
+  ],
+  "size": [
+    "50"
+  ],
+  "rotation": [
+    "0"
+  ],
+  "instrument": [
+    "harpsichord"
+  ],
+  "enum": [
+    "false"
+  ],
+  "equivSteps": [
+    "12"
+  ],
+  "spectrum_colors": [
+    "false"
+  ],
+  "fundamental_color": [
+    "55FF55"
+  ],
+  "no_labels": [
+    "false"
+  ],
+  "scale": [
+    "! 12-ed2 C-System Chromatic Button.scl\n! 12-tone equal tempered scale consisting of 12 sonically equal divisions per frequency halving/doubling, mapped on a (hexagonal) tilted Chromatic Button System Type-C used on some button accordions.\n!\nTerpstra Keyboard WebApp | 12-ed2 C-System Chromatic Button\n12\n!\n100.00000\n200.00000\n300.00000\n400.00000\n500.00000\n600.00000\n700.00000\n800.00000\n900.00000\n1000.00000\n1100.00000\n1200.00000"
+  ],
+  "names": [
+    "一\n犬\n二\n猫\n三\n混\n叮\n四\n男\n五\n米\n六"
+  ],
+  "note_colors": [
+    "ffffff\n005242\nffffff\n005242\nffffff\n02ad8c\n005242\nffffff\n005242\nffffff\n005242\nbababa"
+  ]
+};
 document.getElementById("fundamental").value = ("fundamental" in getData) ? getData.fundamental : 263.09212;
 document.getElementById("rSteps").value = ("right" in getData) ? getData.right : 5;
 document.getElementById("urSteps").value = ("upright" in getData) ? getData.upright : 2;
@@ -112,35 +155,7 @@ Point.prototype.minus = function (p) {
 };
 
 function changeURL() {
-  var url = window.location.pathname + "?";
-  // add fundamental, right, upright, size
-
-  url += "fundamental=" + document.getElementById("fundamental").value +
-    "&right=" + document.getElementById("rSteps").value +
-    "&upright=" + document.getElementById("urSteps").value +
-    "&size=" + document.getElementById("hexSize").value +
-    "&rotation=" + document.getElementById("rotation").value +
-    "&instrument=" + document.getElementById("instrument").value +
-    "&enum=" + document.getElementById("enum").checked +
-    "&equivSteps=" + document.getElementById("equivSteps").value +
-    "&spectrum_colors=" + document.getElementById("spectrum_colors").checked +
-    "&fundamental_color=" + document.getElementById("fundamental_color").value +
-    "&no_labels=" + document.getElementById("no_labels").checked;
-
-  url += "&scale=";
-  url += encodeURIComponent(document.getElementById('scale').value);
-
-  url += "&names=";
-  url += encodeURIComponent(document.getElementById('names').value);
-
-  url += "&note_colors=";
-  url += encodeURIComponent(document.getElementById('note_colors').value);
-
-  // Find scl file description for the page title
-
   document.title = "全糸平琴 emulated with Terpstra Keyboard WebApp";
-
-  // window.history.replaceState({}, '', url);
 }
 
 var settings = {};
@@ -1321,20 +1336,8 @@ function rgbToHex(r, g, b) {
 }
 
 
-function checkPreset(init) {
-  var mselect = document.getElementById('quicklinks');
-  var url_str = window.location.href;
+function checkPreset() {
 
-  //first check for .htm as end of url and set the default preset (31ET)
-  if (url_str.substr(url_str.length - 4) == '.htm') {
-    mselect.value = mselect.options[init].value;
-  }
-  for (var i = 0; i < mselect.length; i++) {
-    if (url_str.indexOf(mselect.options[i].value) != -1) {
-      //this is the correct preset
-      mselect.value = mselect.options[i].value;
-    }
-  }
 }
 
 function noPreset() {
