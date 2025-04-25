@@ -809,7 +809,7 @@ function drawHex(p, c) { /* Point, color */
     var scaleFactor = settings.hexSize / 50;
     settings.context.scale(scaleFactor, scaleFactor);
     settings.context.translate(10, -25);
-    settings.context.fillStyle = "white";
+    settings.context.fillStyle = getContrastYIQ(current_text_color);
     settings.context.font = "12pt linzklar_rounded";
     settings.context.textAlign = "center";
     settings.context.textBaseline = "middle";
