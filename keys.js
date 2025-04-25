@@ -247,25 +247,6 @@ function resizeHandler() {
   drawGrid();
 }
 
-function back() {
-  // Remove key listener
-  window.removeEventListener("keydown", onKeyDown);
-  window.removeEventListener("keyup", onKeyUp);
-  is_key_event_added = undefined;
-  // Stop all active notes
-  while (settings.activeHexObjects.length > 0) {
-    var coords = settings.activeHexObjects[0].coords;
-    settings.activeHexObjects[0].noteOff();
-    drawHex(coords, centsToColor(hexCoordsToCents(coords), false));
-    settings.activeHexObjects.splice(0, 1);
-  }
-  // UI change
-  document.getElementById("keyboard").style.display = "none";
-  document.getElementById("backButton").style.display = "none";
-  document.getElementById("landing-page").style.display = "block";
-  document.body.style.overflow = 'scroll';
-}
-
 function goKeyboard() {
 
   changeURL();
