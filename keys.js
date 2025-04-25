@@ -48,17 +48,20 @@ var getData = {
     "ffffff\n005242\nffffff\n005242\nffffff\n02ad8c\n005242\nffffff\n005242\nffffff\n005242\nbababa"
   ]
 };
-document.getElementById("fundamental").value = ("fundamental" in getData) ? getData.fundamental : 263.09212;
-document.getElementById("rSteps").value = ("right" in getData) ? getData.right : 5;
-document.getElementById("urSteps").value = ("upright" in getData) ? getData.upright : 2;
-document.getElementById("hexSize").value = ("size" in getData) ? getData.size : 50;
-document.getElementById("rotation").value = ("rotation" in getData) ? getData.rotation : 343.897886248;
-document.getElementById("instrument").value = ("instrument" in getData) ? getData.instrument : "organ";
-document.getElementById("enum").checked = ("enum" in getData) ? JSON.parse(getData["enum"]) : false;
-document.getElementById("equivSteps").value = ("equivSteps" in getData) ? getData.equivSteps : 31;
-document.getElementById("spectrum_colors").checked = ("spectrum_colors" in getData) ? JSON.parse(getData.spectrum_colors) : false;
-document.getElementById("fundamental_color").value = ("fundamental_color" in getData) ? getData.fundamental_color : '#55ff55';
-document.getElementById("no_labels").checked = ("no_labels" in getData) ? JSON.parse(getData.no_labels) : false;
+
+var GLOBAL_STATE = {};
+
+GLOBAL_STATE.fundamental = ("fundamental" in getData) ? getData.fundamental : 263.09212;
+GLOBAL_STATE.rSteps = ("right" in getData) ? getData.right : 5;
+GLOBAL_STATE.urSteps = ("upright" in getData) ? getData.upright : 2;
+GLOBAL_STATE.hexSize = ("size" in getData) ? getData.size : 50;
+GLOBAL_STATE.rotation = ("rotation" in getData) ? getData.rotation : 343.897886248;
+GLOBAL_STATE.instrument = ("instrument" in getData) ? getData.instrument : "organ";
+GLOBAL_STATE.enum = ("enum" in getData) ? JSON.parse(getData["enum"]) : false;
+GLOBAL_STATE.equivSteps = ("equivSteps" in getData) ? getData.equivSteps : 31;
+GLOBAL_STATE.spectrum_colors = ("spectrum_colors" in getData) ? JSON.parse(getData.spectrum_colors) : false;
+GLOBAL_STATE.fundamental_color = ("fundamental_color" in getData) ? getData.fundamental_color : '#55ff55';
+GLOBAL_STATE.no_labels = ("no_labels" in getData) ? JSON.parse(getData.no_labels) : false;
 
 
 var global_pressed_interval;
@@ -81,7 +84,7 @@ hideRevealColors();
 hideRevealEnum();
 
 function hideRevealNames() {
-  if (document.getElementById("enum").checked) {
+  if (GLOBAL_STATE.enum) {
     document.getElementById("equivSteps").style.display = 'block';
     document.getElementById("names").style.display = 'none';
     document.getElementById("numberLabel").style.display = 'block';
@@ -96,7 +99,7 @@ function hideRevealNames() {
 }
 
 function hideRevealColors() {
-  if (document.getElementById("spectrum_colors").checked) {
+  if (GLOBAL_STATE.spectrum_colors) {
     document.getElementById("fundamental_color").style.display = 'block';
     document.getElementById("fundamental_colorLabel").style.display = 'block';
     document.getElementById("note_colors").style.display = 'none';
@@ -114,7 +117,7 @@ function hideRevealColors() {
 }
 
 function hideRevealEnum() {
-  if (document.getElementById("no_labels").checked) {
+  if (GLOBAL_STATE.no_labels) {
     document.getElementById("enum").disabled = true;
     document.getElementById("equivSteps").style.display = 'none';
     document.getElementById("names").style.display = 'none';
@@ -122,7 +125,7 @@ function hideRevealEnum() {
     document.getElementById("namesLabel").style.display = 'none';
   } else {
     document.getElementById("enum").disabled = false;
-    if (!document.getElementById('enum').checked) {
+    if (!GLOBAL_STATE.enum) {
       document.getElementById("namesLabel").style.display = 'block';
       document.getElementById("names").style.display = 'block';
     } else {
@@ -260,16 +263,16 @@ function goKeyboard() {
 
   // set up settings constants
 
-  settings.fundamental = document.getElementById("fundamental").value;
-  settings.rSteps = document.getElementById("rSteps").value;
-  settings.urSteps = parseFloat(settings.rSteps) - parseFloat(document.getElementById("urSteps").value); // Adjust to different coordinate system
-  settings.hexSize = document.getElementById("hexSize").value;
-  settings.rotation = (document.getElementById("rotation").value * 2 * Math.PI) / 360;
+  settings.fundamental = GLOBAL_STATE.fundamental;
+  settings.rSteps = GLOBAL_STATE.rSteps;
+  settings.urSteps = parseFloat(settings.rSteps) - parseFloat(GLOBAL_STATE.urSteps); // Adjust to different coordinate system
+  settings.hexSize = GLOBAL_STATE.hexSize;
+  settings.rotation = (GLOBAL_STATE.rotation * 2 * Math.PI) / 360;
   parseScale();
   parseScaleColors();
   settings.names = document.getElementById('names').value.split('\n');
-  settings["enum"] = document.getElementById('enum').checked;
-  settings.equivSteps = parseInt(document.getElementById('equivSteps').value);
+  settings["enum"] = GLOBAL_STATE.enum;
+  settings.equivSteps = parseInt(GLOBAL_STATE.equivSteps);
 
   settings.canvas = document.getElementById('keyboard');
   settings.context = settings.canvas.getContext('2d');
@@ -278,9 +281,9 @@ function goKeyboard() {
   settings.hexVert = settings.hexHeight * 3 / 4;
   settings.hexWidth = Math.sqrt(3) / 2 * settings.hexHeight;
 
-  settings.no_labels = document.getElementById('no_labels').checked;
-  settings.spectrum_colors = document.getElementById('spectrum_colors').checked;
-  settings.fundamental_color = document.getElementById('fundamental_color').value;
+  settings.no_labels = GLOBAL_STATE.no_labels;
+  settings.spectrum_colors = GLOBAL_STATE.spectrum_colors;
+  settings.fundamental_color = GLOBAL_STATE.fundamental_color;
 
   // Set up resize handler
 
@@ -1332,5 +1335,5 @@ if (init_keyboard_onload) {
   //hide landing page
   document.getElementById('landing-page').style.display = 'none';
 
-  setTimeout(function () { goKeyboard(); }, 1500);
+  goKeyboard();
 }
