@@ -486,10 +486,10 @@ function goKeyboard() {
               settings.sustainedNotes[note].noteOff();
             }
             settings.sustainedNotes = [];
-            tempAlert('Sustain Off', 900);
+            tempAlert('声時短', 900);
           } else {
             settings.sustain = true;
-            tempAlert('Sustain On', 900);
+            tempAlert('声時長', 900);
           }
         }
       }
@@ -1084,7 +1084,7 @@ function onLoadError(e) {
 
 function tempAlert(msg, duration) {
   var el = document.createElement("div");
-  el.setAttribute("style", "position:absolute;top:40%;left:20%;background-color:white; font-size:25px;");
+  el.setAttribute("style", "font-family: 'linzklar_rounded';position:absolute;top:40%;left:20%;background-color:white; font-size:25px;");
   el.innerHTML = msg;
   setTimeout(function () {
     el.parentNode.removeChild(el);
