@@ -143,19 +143,7 @@ function changeURL() {
 
   // Find scl file description for the page title
 
-  var scaleLines = document.getElementById('scale').value.split('\n');
-  var first = true;
-  var foundDescription = false;
-  var description = "Terpstra Keyboard WebApp";
-
-  scaleLines.forEach(function (line) {
-    if (!(foundDescription) && !(line.match(/^\!/)) && line.match(/[a-zA-Z]+/)) {
-      foundDescription = true;
-      description = line;
-    }
-  });
-
-  document.title = description;
+  document.title = "全糸平琴 emulated with Terpstra Keyboard WebApp";
 
   window.history.replaceState({}, '', url);
 }
