@@ -698,7 +698,14 @@ function hexCoordsToScreen(hex) { /* Point */
   return (new Point(screenX, screenY));
 }
 
+let f = new FontFace("linzklar_rounded", "url(linzklar_rounded.woff)");
+
 function drawHex(p, c) { /* Point, color */
+  f.load().then(() => {
+    drawHex_(p, c)
+  });
+}
+function drawHex_(p, c) { /* Point, color */
 
   var hexCenter = hexCoordsToScreen(p);
 
@@ -808,7 +815,7 @@ function drawHex(p, c) { /* Point, color */
 
     var scaleFactor = settings.hexSize / 50;
     settings.context.scale(scaleFactor, scaleFactor);
-    settings.context.translate(10, -25);
+    settings.context.translate(0, -30);
     settings.context.fillStyle = getContrastYIQ(current_text_color);
     settings.context.font = "12pt linzklar_rounded";
     settings.context.textAlign = "center";
