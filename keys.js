@@ -1,9 +1,4 @@
-//check\set preset
 var init_keyboard_onload = true;
-/*if(decodeURIComponent(window.location.search) == '')
-{
-  init_keyboard_onload = false;
-}*/
 
 checkPreset(16);
 // fill in form
@@ -145,7 +140,7 @@ function changeURL() {
 
   document.title = "全糸平琴 emulated with Terpstra Keyboard WebApp";
 
-  window.history.replaceState({}, '', url);
+  // window.history.replaceState({}, '', url);
 }
 
 var settings = {};
