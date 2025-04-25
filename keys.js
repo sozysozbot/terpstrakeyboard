@@ -99,7 +99,7 @@ function hideRevealNames() {
 }
 
 function hideRevealColors() {
-  if (GLOBAL_STATE.spectrum_colors) {
+  /*if (GLOBAL_STATE.spectrum_colors) {
     document.getElementById("fundamental_color").style.display = 'block';
     document.getElementById("fundamental_colorLabel").style.display = 'block';
     document.getElementById("note_colors").style.display = 'none';
@@ -110,7 +110,7 @@ function hideRevealColors() {
     document.getElementById("fundamental_colorLabel").style.display = 'none';
     document.getElementById("note_colors").style.display = 'block';
     document.getElementById("note_colorsLabel").style.display = 'block';
-  }
+  }*/
 
   changeURL();
 
@@ -297,7 +297,7 @@ function goKeyboard() {
   // Set up synth
 
   settings.sampleBuffer = [undefined, undefined, undefined];
-  var instrumentOption = document.getElementById("instrument").selectedIndex;
+  var instrumentOption = 1; /* harpsichord */ // document.getElementById("instrument").selectedIndex;
   var instruments = [{
     fileName: "piano",
     fade: 0.1

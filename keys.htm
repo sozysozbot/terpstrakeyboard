@@ -93,32 +93,17 @@
 
                           </select>
 
-                          <label>Fundamental (Hz)</label>
-                          <input id="fundamental" type="number" step="any" min="0.015625" max="16384" value="256" onchange="changeURL();noPreset();" class="u-full-width">
+                          
                        </div>
 
-						<div class="u-half-width">
-
-                          <label>Right Facing Steps</label>
-                          <input id="rSteps" type="number" min="-1220" max="1220" value="4" onchange="changeURL();noPreset();" class="u-full-width">
-
-                          <label>Up/Right Facing Steps</label>
-                          <input id="urSteps" type="number" min="-1220" max="1220" value="7" onchange="changeURL();noPreset();" class="u-full-width">
-						</div>
+						
                     </div>
 
 					<div class="one-half column thincol-parent">
-						<div class="u-half-width rpad">
-
-                          <label>Hex Size (pixels)</label>
-                          <input id="hexSize" type="number" step="any" min="20" max="1000" value="50" onchange="changeURL();noPreset();" class="u-full-width">
-
-                          <label>Rotation (degrees)</label>
-                          <input id="rotation" type="number" step="any" min="0" max="360" value="343.897886248" onchange="changeURL();noPreset();" class="u-full-width">
-						</div>
-
+					
 						<div class="u-half-width">
 
+                            <!--
                           <label>Instrument</label>
                           <select id="instrument" onchange="changeURL();noPreset();"  class="u-full-width">
                             <optgroup label="Regular">
@@ -135,21 +120,8 @@
                                 <option value="organleslie">Organ + Leslie</option>
                                 <option value="marimba">Marimba</option>
                                 <option value="musicbox">Music Box</option>
-                            </optgroup>
-                            <optgroup label="«What Music Really İs» Study Tones">
-                                <option value="WMRI3LST">WMRİ 3-Limit (4 Harmonics) ST</option>
-                                <option value="WMRI5LST">WMRİ 5-Limit (6 Harmonics) ST</option>
-                                <option value="WMRI5Lpike">WMRİ 5-Limit (6 Harmonics) Pk</option>
-                                <option value="WMRI7LST">WMRİ 7-Limit (10 Harmonics) ST</option>
-                                <option value="WMRI11LST">WMRİ 11-Limit (12 Harmonics) ST</option>
-                                <option value="WMRI13LST">WMRİ 13-Limit (16 Harmonics) ST</option>
-                                <option value="WMRInLST">WMRİ n-Limit ("sawtooth wave") ST</option>
-                                <option value="WMRIByzantineST">WMRİ Byzantine (9 Harmonics) ST</option>
-                                <option value="WMRI-in6-har7-">WMRİ Stretch inharmonic 6 = harmonic 7</option>
-                                <option value="WMRI-in7-har6-">WMRİ Compress inharmonic 7 = harmonic 6</option>
-                            </optgroup>
-                          </select>
-
+                            </optgroup>-->
+                          
                           <label>
                               <input id="enum" type="checkbox" name="number_or_name" value="fnord" onchange="hideRevealNames();noPreset();">
                               <span class="label-body">Enumerate Scale</span>
@@ -161,8 +133,7 @@
                           </label>
 
                           <label>
-                              <input id="no_labels" type="checkbox" name="no_labels" value="fnord" onchange="hideRevealEnum();noPreset();">
-                              <span class="label-body">Blank Keys (No labels)</span>
+                              
                           </label>
 						</div>
 					</div>
@@ -254,9 +225,8 @@ B♯</textarea>
 					</div>
 
                     <div class="u-half-width">
-                        <label id="fundamental_colorLabel" style="display: none;">Fundamental Color</label>
-                        <input type="text" id="fundamental_color" style="display: none;" class="jscolor u-full-width" value="#55ff55">
-
+                       
+                        
                         <label id="note_colorsLabel">Color Layout</label>
                         <textarea id="note_colors" onchange="changeURL();noPreset();" class="iosscrollable u-full-width" rows="12">ffffff
 ff9f41
