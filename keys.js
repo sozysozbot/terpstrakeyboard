@@ -797,6 +797,7 @@ function drawHex_(p, c) { /* Point, color */
       var scaleFactor = name.length > 3 ? 3 / name.length : 1;
       scaleFactor *= settings.hexSize / 50;
       settings.context.scale(scaleFactor, scaleFactor);
+      settings.context.fillStyle = "一二三四五六".includes(name) ? "black" : "white";
       settings.context.fillText(name, 0, 0);
       settings.context.restore();
     }
@@ -804,7 +805,7 @@ function drawHex_(p, c) { /* Point, color */
     var scaleFactor = settings.hexSize / 50;
     settings.context.scale(scaleFactor, scaleFactor);
     settings.context.translate(0, -30);
-    settings.context.fillStyle = "white";
+    settings.context.fillStyle = "一二三四五六".includes(name) ? "black" : "white";
     settings.context.font = "12pt linzklar_rounded";
     settings.context.textAlign = "center";
     settings.context.textBaseline = "middle";
