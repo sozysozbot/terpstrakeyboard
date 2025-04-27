@@ -1335,5 +1335,5 @@ if (init_keyboard_onload) {
   //hide landing page
   document.getElementById('landing-page').style.display = 'none';
 
-  goKeyboard();
+  setTimeout(function () { goKeyboard(); }, 1500);
 }
